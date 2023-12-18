@@ -52,7 +52,7 @@ code-input textarea, code-input:not(.code-input_pre-element-styled) pre code, co
 }
 code-input:not(.code-input_pre-element-styled) pre code, code-input.code-input_pre-element-styled pre {
   height: max-content;
-  width: max-content;  
+  width: max-content;
 }
 
 code-input:not(.code-input_pre-element-styled) pre, code-input.code-input_pre-element-styled pre code {
@@ -99,8 +99,11 @@ code-input:not(.code-input_loaded)::after {
 /* Make textarea almost completely transparent, except for caret and placeholder */
 
 code-input textarea {
-  color: transparent;
-  background: transparent;
+  color: black;
+  background-color: white;
+  mix-blend-mode: lighten;
+  /* color: transparent;
+  background: transparent; */
   caret-color: inherit!important; /* Or choose your favourite color */
 }
 code-input textarea::placeholder {

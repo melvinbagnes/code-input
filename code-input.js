@@ -540,13 +540,13 @@ var codeInput = {
             if(this.needsHighlight) {
                 this.update();
                 this.needsHighlight = false;
-                // this.needsDisableDuplicateSearching = true;
+                this.needsDisableDuplicateSearching = true;
             }
-            // if(this.needsDisableDuplicateSearching && this.codeElement.querySelector("*") != null) {
-            //     // Has been highlighted
-            //     this.resultElementDisableSearching();
-            //     this.needsDisableDuplicateSearching = false;
-            // }
+            if(this.needsDisableDuplicateSearching && this.codeElement.querySelector("*") != null) {
+                // Has been highlighted
+                this.resultElementDisableSearching();
+                this.needsDisableDuplicateSearching = false;
+            }
 
             window.requestAnimationFrame(this.animateFrame.bind(this));
         }
@@ -607,8 +607,16 @@ var codeInput = {
                     // Turn plain text node into span element
                     element.replaceChild(document.createElement('span'), element.childNodes[i]);
                     element.childNodes[i].classList.add("code-input_searching-disabled")
-                    element.childNodes[i].setAttribute("data-content", content);
-                    element.childNodes[i].innerText = '';
+                    // element.childNodes[i].setAttribute("data-content", content);
+                    let newContent = "";
+                    for(let i = 0; i < content.length; i++) {
+                        if(content[i] == "\t" || content[i] == "\n") {
+                            newContent += content[i];
+                        } else {
+                            newContent += "█";
+                        }
+                    }
+                    element.childNodes[i].textContent = newContent;
                 } else {
                     // Recurse deeper
                     this.resultElementDisableSearching(element.childNodes[i]);
@@ -695,7 +703,6 @@ var codeInput = {
             // Create result element
             let code = document.createElement("code");
             let pre = document.createElement("pre");
-            pre.setAttribute("aria-hidden", "true"); // Hide for screen readers
 
             // Save elements internally
             this.preElement = pre;
